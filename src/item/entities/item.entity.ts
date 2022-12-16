@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany , JoinColumn, OneToOne} from 'typeorm';
-import  ItemType  from 'models/ItemType.enum'
-import {Store} from 'src/store/entities/store.entity'
-import {User} from 'entities/user.entity'
+import { User } from 'entities/user.entity';
+import ItemType from 'models/ItemType.enum';
+import { Store } from 'src/store/entities/store.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Item {
@@ -17,9 +17,8 @@ export class Item {
   @Column({ default: ItemType.account })
   Type: ItemType;
 
-  @OneToMany(() => Store, store => Store)
-  @JoinColumn()
-  storeId: Store;
+  @ManyToOne(() => Store, store => store.items)
+  store: Store;
 
   @OneToOne(() => User)
   @JoinColumn()

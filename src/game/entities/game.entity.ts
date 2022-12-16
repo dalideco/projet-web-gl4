@@ -1,6 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany , JoinColumn, ManyToMany} from 'typeorm';
-
-
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Game {
@@ -15,5 +13,4 @@ export class Game {
 
   @Column()
   image: string;
-
 }

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Item } from 'src/item/entities/item.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Store {
@@ -10,4 +11,7 @@ export class Store {
 
   @Column()
   image: string;
+
+  @OneToMany(()=>Item, item => item.store)
+  items: Item[]
 }

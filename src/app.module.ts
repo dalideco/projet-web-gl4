@@ -1,17 +1,16 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'entities/user.entity';
-import {Item} from 'src/item/entities/item.entity'
-import {Store} from 'src/store/entities/store.entity'
-import {Game} from 'src/game/entities/game.entity'
+import { Item } from 'src/item/entities/item.entity';
+import { Store } from 'src/store/entities/store.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { ItemModule } from './item/item.module';
 import { GameModule } from './game/game.module';
+import { ItemModule } from './item/item.module';
 import { StoreModule } from './store/store.module';
+import { UserModule } from './user/user.module';
 
 
 
@@ -24,7 +23,7 @@ import { StoreModule } from './store/store.module';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'sqlite.db',
-      entities: [User,Item],
+      entities: [User,Item,Store],
       synchronize: process.env.ENV === 'local',
     }),
     UserModule,
