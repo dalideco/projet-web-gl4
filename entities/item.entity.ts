@@ -1,6 +1,6 @@
 import { User } from 'entities/user.entity';
 import ItemType from 'models/ItemType.enum';
-import { Store } from 'src/store/entities/store.entity';
+import { Store } from 'entities/store.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

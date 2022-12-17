@@ -1,5 +1,6 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { SingupUserDto } from './dto/signup.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 
@@ -14,8 +15,7 @@ export class AuthController {
   }
 
   @Post('signup')
-  async signup(@Body() body) {
-    console.log(body);
+  async signup(@Body() body: SingupUserDto) {
     return this.authService.singupUser(body.email, body.password);
   }
 
