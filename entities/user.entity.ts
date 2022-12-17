@@ -15,6 +15,6 @@ export class User {
   @Column({ default: false })
   confirmed: boolean;
 
-  @Column({ default: Role.buyer })
+  @Column({ default: Role.user })
   role: Role;
 }

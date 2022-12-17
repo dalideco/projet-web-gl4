@@ -11,8 +11,9 @@ import { GameModule } from './game/game.module';
 import { ItemModule } from './item/item.module';
 import { StoreModule } from './store/store.module';
 import { UserModule } from './user/user.module';
-
-
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { RolesGuard } from './auth/roles.guard';
 
 @Module({
   imports: [
@@ -23,9 +24,9 @@ import { UserModule } from './user/user.module';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'sqlite.db',
-      entities: [User,Item,Store],
+      entities: [User, Item, Store],
       synchronize: process.env.ENV === 'local',
-      autoLoadEntities:true, 
+      autoLoadEntities: true,
     }),
     UserModule,
     AuthModule,
@@ -34,6 +35,16 @@ import { UserModule } from './user/user.module';
     StoreModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

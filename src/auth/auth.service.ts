@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { User } from 'entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { hash, compare } from 'bcrypt';
@@ -32,14 +32,14 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: user.id, role: user.role };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
 
   async singupUser(email: string, pass: string) {
-    return new Promise<User>((resolve) => {
+    return new Promise<User | HttpException>(async (resolve) => {
       //hash password
       hash(pass, 10, async (_, hashed) => {
         //save user
@@ -48,5 +48,11 @@ export class AuthService {
         return resolve(user);
       });
     });
+  }
+
+  async verifyEmailExists(email: string) {
+    const found = await this.usersService.findOneByEmail(email);
+
+    return found;
   }
 }
