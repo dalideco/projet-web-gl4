@@ -1,0 +1,36 @@
+version: '2'
+
+networks:
+  projet-web:
+    driver: bridge
+
+services:
+  minio:
+    container_name: 'projet-storage'
+    image: 'quay.io/minio/minio:latest'
+    command: "server /data/storage --console-address :9001"
+    environment:
+      - "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE"
+      - "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    volumes:
+      - ./storage-volume:/data/storage
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - projet-web
+
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add myminio http://minio:9000 AKIAIOSFODNN7EXAMPLE wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY;
+      /usr/bin/mc rm -r --force myminio/projet;
+      /usr/bin/mc mb myminio/projet;
+      /usr/bin/mc policy set download myminio/projet;
+      exit 0;
+      "
+    networks:
+      - projet-web
