@@ -20,7 +20,6 @@ export class Item {
   @ManyToOne(() => Store, store => store.items)
   store: Store;
 
-  @OneToOne(() => User)
-  @JoinColumn()
-  userEmail: User;
+  @ManyToOne(() => User,user => user.items)
+  user: User;
 }
