@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Store } from 'entities/store.entity';
+import { Repository } from 'typeorm';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
 
 @Injectable()
 export class StoreService {
+  constructor(
+    @InjectRepository(Store)
+    private storeRepository: Repository<Store>,
+  ) {}
+
   create(createStoreDto: CreateStoreDto) {
     return 'This action adds a new store';
   }
@@ -13,7 +21,7 @@ export class StoreService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} store`;
+    return this.storeRepository.findOneBy({ id });
   }
 
   update(id: number, updateStoreDto: UpdateStoreDto) {

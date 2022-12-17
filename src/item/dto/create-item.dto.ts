@@ -1,4 +1,4 @@
-import { IsNotEmpty , IsNumber , IsEmail , IsString} from 'class-validator';
+import { IsNumber , IsEmail , IsString} from 'class-validator';
 import ItemType from 'models/ItemType.enum'
 export class CreateItemDto {
    

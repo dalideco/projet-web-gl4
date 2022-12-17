@@ -27,6 +27,7 @@ import { RolesGuard } from './auth/roles.guard';
       entities: [User, Item, Store],
       synchronize: process.env.ENV === 'local',
       autoLoadEntities: true,
+      
     }),
     UserModule,
     AuthModule,
