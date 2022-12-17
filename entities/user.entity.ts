@@ -1,5 +1,6 @@
 import Role from 'models/role.enum';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Item } from './item.entity';
 
 @Entity()
 export class User {
@@ -17,4 +18,8 @@ export class User {
 
   @Column({ default: Role.user })
   role: Role;
+
+  @OneToMany(() => Item,item => item.user)
+  items: Item[];
+
 }
