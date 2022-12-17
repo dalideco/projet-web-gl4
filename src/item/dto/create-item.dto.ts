@@ -15,5 +15,5 @@ export class CreateItemDto {
     storeid: number;
     
     @IsEmail()
-    userEmail: String;
+    userEmail: string;
 }
