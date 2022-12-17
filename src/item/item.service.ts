@@ -1,31 +1,27 @@
-import { Injectable , ConflictException, NotFoundException } from '@nestjs/common';
-import { CreateItemDto } from './dto/create-item.dto';
-import { UpdateItemDto } from './dto/update-item.dto';
-import { UserService } from 'src/user/user.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Item } from 'entities/item.entity';
-import { Repository } from 'typeorm';
 import { StoreService } from 'src/store/store.service';
-import { Store } from 'entities/store.entity';
+import { UserService } from 'src/user/user.service';
+import { Repository } from 'typeorm';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
 
 @Injectable()
 export class ItemService {
-
   constructor(
     @InjectRepository(Item)
     private itemRepository: Repository<Item>,
     // private storeRepository: Repository<Store>,
-    private storeService: StoreService, 
+    private storeService: StoreService,
     private userService: UserService,
-  
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    
     const store = await this.storeService.findOne(createItemDto.storeid);
     const user = await this.userService.findOneByEmail(createItemDto.userEmail);
     if (store) {
-      const obj = { ...createItemDto, store , user};
+      const obj = { ...createItemDto, store, user };
       const item = await this.itemRepository.create(obj);
       return this.itemRepository.save(item);
     }
@@ -34,21 +30,19 @@ export class ItemService {
     );
   }
 
-  
-
   findAll() {
-    // return this.itemRepository.find();
+    return this.itemRepository.find();
   }
 
   findOne(id: number) {
-    // return this.itemRepository.findOneBy({id:id});
+    return this.itemRepository.findOneBy({ id });
   }
 
   update(id: number, updateItemDto: UpdateItemDto) {
-    return `This action updates a #${id} item`;
+    return this.itemRepository.update({ id }, updateItemDto);
   }
 
   remove(id: number) {
-    // return this.itemRepository.softDelete(id);
+    return this.itemRepository.softDelete({ id });
   }
 }

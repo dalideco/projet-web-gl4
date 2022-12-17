@@ -7,17 +7,19 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 
 @Injectable()
 export class StoreService {
+
   constructor(
     @InjectRepository(Store)
-    private storeRepository: Repository<Store>,
+    private readonly storeRepository: Repository<Store>,
   ) {}
 
   create(createStoreDto: CreateStoreDto) {
-    return 'This action adds a new store';
+    const store = this.storeRepository.create(createStoreDto);
+    return this.storeRepository.save(store);
   }
 
   findAll() {
-    return `This action returns all store`;
+    return this.storeRepository.find();
   }
 
   findOne(id: number) {
@@ -25,10 +27,10 @@ export class StoreService {
   }
 
   update(id: number, updateStoreDto: UpdateStoreDto) {
-    return `This action updates a #${id} store`;
+    return this.storeRepository.update({ id }, updateStoreDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} store`;
+    return this.storeRepository.softDelete(id);
   }
 }
