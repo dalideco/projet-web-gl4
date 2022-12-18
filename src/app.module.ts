@@ -14,6 +14,7 @@ import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
+import { Game } from 'entities/game.entity';
 
 @Module({
   imports: [
@@ -24,10 +25,9 @@ import { RolesGuard } from './auth/guards/roles.guard';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'sqlite.db',
-      entities: [User, Item, Store],
+      entities: [User, Item, Store, Game],
       synchronize: process.env.ENV === 'local',
       autoLoadEntities: true,
-      
     }),
     UserModule,
     AuthModule,

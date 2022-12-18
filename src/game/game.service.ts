@@ -7,12 +7,10 @@ import { UpdateGameDto } from './dto/update-game.dto';
 
 @Injectable()
 export class GameService {
-
   constructor(
     @InjectRepository(Game)
     private readonly gameRepository: Repository<Game>,
   ) {}
-
 
   create(createGameDto: CreateGameDto) {
     const game = this.gameRepository.create(createGameDto);
@@ -28,7 +26,7 @@ export class GameService {
   }
 
   update(id: number, updateGameDto: UpdateGameDto) {
-    return `This action updates a #${id} game`;
+    return this.gameRepository.update({ id }, { ...updateGameDto });
   }
 
   remove(id: number) {
