@@ -26,37 +26,54 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+<br/>
+
+# Setting up local environment
+
 ## Installation
 
 ```bash
-$ npm install
+$ yarn
 ```
+
+## Setting envronment variables
+
+Created a file named `.local.env` containing the following environment variables: 
+```
+ENV=local
+```
+This is need to enable synchronize with TypeOrm and initially seed the database
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```
+
+## Database
+
+When first launching the app an `sqlite.db` file will be created and seeded, to reset the database delete the file and restart the server.
+Suggestion: You can Open the sqlite database with DBeaver.
 
 ## Support
 
