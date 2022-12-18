@@ -4,7 +4,7 @@ import { Roles } from 'decorators/roles.decoroator';
 import Role from 'models/role.enum';
 import { AuthService } from './auth.service';
 import { SingupUserDto } from './dto/signup.dto';
-import { LocalAuthGuard } from './local-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
