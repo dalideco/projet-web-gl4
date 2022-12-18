@@ -3,6 +3,7 @@ import { User } from 'entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { cryptingConstants } from './constants';
 
 @Injectable()
 export class AuthService {
@@ -15,8 +16,12 @@ export class AuthService {
     return new Promise<User>(async (resolve) => {
       //getting user
       const user = await this.usersService.findOneByEmail(email);
+
       //if no user fail
-      if (!user) return null;
+      if (!user) {
+        resolve(null);
+        return;
+      }
 
       //comapare password
       compare(pass, user.hashed_password, (_, same) => {
@@ -41,7 +46,7 @@ export class AuthService {
   async singupUser(email: string, pass: string) {
     return new Promise<User | HttpException>(async (resolve) => {
       //hash password
-      hash(pass, 10, async (_, hashed) => {
+      hash(pass, cryptingConstants.saltRounds, async (_, hashed) => {
         //save user
         const user = await this.usersService.addOne(email, hashed);
         if (!user) return resolve(null);

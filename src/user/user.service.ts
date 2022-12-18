@@ -28,11 +28,24 @@ export class UserService {
     return entity;
   }
 
+  async insertOne(user: Partial<User>){
+    const entity = this.usersRepository.create({
+      ...user
+    });
+    this.usersRepository.save([entity]);
+    return entity;
+  }
+
   findOneByEmail(email: string): Promise<User> {
     return this.usersRepository.findOneBy({ email });
   }
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  async empty() {
+    const number = await this.usersRepository.count();
+    return number === 0;
   }
 }
