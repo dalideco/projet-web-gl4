@@ -68,8 +68,14 @@ export class ItemService {
     return this.itemRepository.findOneBy({ id });
   }
 
-  update(id: number, updateItemDto: UpdateItemDto) {
-    return this.itemRepository.update({ id }, updateItemDto);
+  async update(id: number, updateItemDto: UpdateItemDto) {
+    let games: Game[]; 
+    
+    if(updateItemDto.gameIds){
+      games = await this.gameService.findManyIds(updateItemDto.gameIds)
+    }
+
+    return this.itemRepository.update({ id }, {...updateItemDto, games});
   }
 
   remove(id: number) {
