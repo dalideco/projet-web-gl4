@@ -9,7 +9,7 @@ export class CreateItemDto {
     description: string;
     
     @IsString()
-    Type: ItemType;
+    type: ItemType;
     
     @IsNumber()
     storeid: number;

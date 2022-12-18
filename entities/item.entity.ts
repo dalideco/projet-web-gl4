@@ -8,14 +8,14 @@ export class Item {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   price: number;
 
   @Column()
   description: string;
 
   @Column({ default: ItemType.account })
-  Type: ItemType;
+  type: ItemType;
 
   @ManyToOne(() => Store, store => store.items)
   store: Store;

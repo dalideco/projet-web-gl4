@@ -45,4 +45,9 @@ export class ItemService {
   remove(id: number) {
     return this.itemRepository.softDelete({ id });
   }
+
+  async empty(){
+    const number = await this.itemRepository.count()
+    return number === 0;
+  }
 }
