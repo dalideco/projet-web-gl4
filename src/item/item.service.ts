@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Game } from 'entities/game.entity';
 import { Item } from 'entities/item.entity';
+import { GameService } from 'src/game/game.service';
 import { StoreService } from 'src/store/store.service';
 import { UserService } from 'src/user/user.service';
 import { DeepPartial, Repository } from 'typeorm';
@@ -16,19 +18,26 @@ export class ItemService {
     // private storeRepository: Repository<Store>,
     private storeService: StoreService,
     private userService: UserService,
+    private gameService: GameService
   ) {}
 
   async create(createItemDto: CreateItemDto, logged_user: any) {
     //getting related store and user
     const store = await this.storeService.findOne(createItemDto.storeid);
     const user = await this.userService.findOneByEmail(logged_user.email);
+    
+    //getting games
+    let games: Game[];
+    if(createItemDto.gameIds){
+      games= await this.gameService.findManyIds(createItemDto.gameIds)
+    }
 
     //if store found
     if (user && store) {
       //removing password from user object
       delete user.hashed_password;
 
-      const obj: DeepPartial<Item> = { ...createItemDto, store, user };
+      const obj: DeepPartial<Item> = { ...createItemDto, store, user,games };
       const item = await this.itemRepository.create(obj);
       return this.itemRepository.save(item);
     }

@@ -7,13 +7,15 @@ export const items:SeedCreateItemDto[] = [
       description: "hello ", 
       storeid: 1, 
       userEmail: "user@test.test",
-      type:ItemType.account
+      type:ItemType.account,
+      gameIds:[]
     },
     {
       price: 12,
       description: "title clear", 
       storeid: 2, 
       userEmail: "admin@test.test",
-      type:ItemType.account
+      type:ItemType.account,
+      gameIds:[]
     }
   ];

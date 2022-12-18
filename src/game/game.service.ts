@@ -25,6 +25,14 @@ export class GameService {
     return this.gameRepository.findOneBy({ id });
   }
 
+  async findManyIds(ids: number[]){
+    const games: Game[]=[];
+    for(const id of ids) {
+      games.push(await this.findOne(id))
+    }
+    return games
+  }
+
   update(id: number, updateGameDto: UpdateGameDto) {
     return this.gameRepository.update({ id }, { ...updateGameDto });
   }

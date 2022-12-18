@@ -12,4 +12,6 @@ export class CreateItemDto {
 
   @IsNumber()
   storeid: number;
+  
+  gameIds:number[];
 }
