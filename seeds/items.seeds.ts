@@ -1,7 +1,7 @@
 import ItemType from "models/ItemType.enum";
-import { CreateItemDto } from "src/item/dto/create-item.dto";
+import { SeedCreateItemDto } from "src/item/dto/seed-create-item.dto";
 
-export const items:CreateItemDto[] = [
+export const items:SeedCreateItemDto[] = [
     {
       price: 12,
       description: "hello ", 

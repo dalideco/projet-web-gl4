@@ -73,7 +73,7 @@ export class AppService implements OnApplicationBootstrap {
 
   async seedItems() {
     for(const item of items ){
-      this.itemService.create(item)
+      this.itemService.seedCreate(item)
     }
   }
 
