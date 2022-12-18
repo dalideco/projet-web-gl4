@@ -7,7 +7,6 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 
 @Injectable()
 export class StoreService {
-
   constructor(
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
@@ -32,5 +31,10 @@ export class StoreService {
 
   remove(id: number) {
     return this.storeRepository.softDelete(id);
+  }
+
+  async empty() {
+    const number = await this.storeRepository.count();
+    return number === 0;
   }
 }

@@ -1,13 +1,11 @@
-import { isEmpty, IsNotEmpty, isNotEmpty, IsString } from "class-validator";
-import { Item } from "entities/item.entity";
+import { IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateStoreDto {
+  @IsNotEmpty()
+  @IsString()
+  title: string;
 
-    @IsNotEmpty()
-    @IsString()
-    title: string;
-    
-    @IsNotEmpty()
-    @IsString()
-    image: string;
-
+  @IsNotEmpty()
+  @IsString()
+  image: string;
 }
