@@ -1,11 +1,8 @@
 import {
   Column,
   Entity,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  JoinTable,
+  PrimaryGeneratedColumn
 } from 'typeorm';
-import { Item } from './item.entity';
 
 @Entity()
 export class Game {
@@ -20,8 +17,4 @@ export class Game {
 
   @Column()
   image: string;
-
-  @ManyToMany(() => Item)
-  @JoinTable()
-  items: Item[];
 }

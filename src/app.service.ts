@@ -1,65 +1,23 @@
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { hashSync } from 'bcrypt';
-import { User } from 'entities/user.entity';
-import ItemType from 'models/ItemType.enum';
-import Role from 'models/role.enum';
+import { items } from 'seeds/items.seeds';
+import { stores } from 'seeds/stores.seeds';
+import { users } from 'seeds/users.seeds';
 import { cryptingConstants } from './auth/constants';
-import { CreateItemDto } from './item/dto/create-item.dto';
+import { GameService } from './game/game.service';
 import { ItemService } from './item/item.service';
-import { CreateStoreDto } from './store/dto/create-store.dto';
 import { StoreService } from './store/store.service';
 import { UserService } from './user/user.service';
+import { games } from 'seeds/games.seeds';
 
-const users: Partial<User>[] = [
-  {
-    email: 'user@test.test',
-    hashed_password: 'user',
-  },
-  {
-    email: 'admin@test.test',
-    hashed_password: 'admin',
-    role: Role.admin,
-  },
-];
-
-const stores: CreateStoreDto[] = [
-  {
-    title: 'Steam',
-    image: '',
-  },
-  {
-    title: 'Epic',
-    image: '',
-  },
-  {
-    title: 'Origin',
-    image: '',
-  },
-];
-
-const items:CreateItemDto[] = [
-  {
-    price: 12,
-    description: "hello ", 
-    storeid: 1, 
-    userEmail: "user@test.test",
-    type:ItemType.account
-  },
-  {
-    price: 12,
-    description: "title clear", 
-    storeid: 2, 
-    userEmail: "admin@test.test",
-    type:ItemType.account
-  }
-];
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
   constructor(
     private userService: UserService,
     private storeService: StoreService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private gameService: GameService
   ) {}
 
   getHello(): string {
@@ -72,21 +30,30 @@ export class AppService implements OnApplicationBootstrap {
     const usersEmpty = await this.userService.empty();
     if (usersEmpty) {
       Logger.log('seeding users');
-      this.seedUsers();
+      await this.seedUsers();
     }
 
     const storesEmpty = await this.storeService.empty();
     if (storesEmpty) {
       Logger.log('seeding stores');
-      this.seedStores();
+      await this.seedStores();
+    }
+
+    const gamesEmpty = await this.gameService.empty()
+    if(gamesEmpty){
+      Logger.log("seeding games")
+      await this.seedGames()
     }
 
     const itemsEmpty = await this.itemService.empty()
     if(itemsEmpty) {
       Logger.log("seeding items")
-      this.seedItems()
+      await this.seedItems()
     }
+
+    Logger.log("seedings done")
   }
+
 
   async seedUsers() {
     for (const user of users) {
@@ -107,6 +74,12 @@ export class AppService implements OnApplicationBootstrap {
   async seedItems() {
     for(const item of items ){
       this.itemService.create(item)
+    }
+  }
+
+  async seedGames() {
+    for(const game of games ){
+      this.gameService.create(game)
     }
   }
 }

@@ -1,7 +1,8 @@
 import { Store } from 'entities/store.entity';
 import { User } from 'entities/user.entity';
 import ItemType from 'models/ItemType.enum';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Game } from './game.entity';
 
 @Entity()
 export class Item {
@@ -22,4 +23,8 @@ export class Item {
 
   @ManyToOne(() => User,user => user.items)
   user: User;
+
+  @ManyToMany(() => Game)
+  @JoinTable()
+  games: Game[];
 }

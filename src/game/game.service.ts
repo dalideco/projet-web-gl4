@@ -32,4 +32,9 @@ export class GameService {
   remove(id: number) {
     return this.gameRepository.softDelete(id);
   }
+
+  async empty() {
+    const number = await this.gameRepository.count()
+    return number ===0 
+  }
 }
