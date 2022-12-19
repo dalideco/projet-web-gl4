@@ -80,4 +80,26 @@ export class ItemService {
     const number = await this.itemRepository.count();
     return number === 0;
   }
+
+  async removeGame(id: number,gameId : number){
+    let item : Item;
+    item = await this.findOne(id);
+    item.games =  item.games.filter((games) => {
+    return games.id !== gameId
+    })
+    await this.itemRepository.save(item);
+  }
+
+  async addGame(id: number,gameId : number){
+    let item : Item;
+    let game : Game;
+    item = await this.findOne(id);
+    game = await this.gameService.findOne(gameId)
+    if(game){
+      item.games.push(game);
+      await this.itemRepository.save(item);
+    }  
+  }
+
+  
 }
