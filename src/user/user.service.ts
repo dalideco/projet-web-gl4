@@ -44,6 +44,14 @@ export class UserService {
     await this.usersRepository.delete(id);
   }
 
+  async addImage(user:any , image: Express.Multer.File){
+    const foundUser = await this.findOne(user.id)
+    foundUser.image = image.filename
+    const toReturnUser = await this.usersRepository.save(foundUser)
+    delete toReturnUser.hashed_password
+    return toReturnUser
+  }
+
   async empty() {
     const number = await this.usersRepository.count();
     return number === 0;

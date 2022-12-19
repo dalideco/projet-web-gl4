@@ -22,4 +22,6 @@ export class User {
   @OneToMany(() => Item,item => item.user)
   items: Item[];
 
+  @Column({nullable:true})
+  image: string;
 }

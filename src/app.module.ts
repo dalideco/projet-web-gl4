@@ -15,9 +15,14 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Game } from 'entities/game.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname,"..","..", "uploads")
+    }),
     ConfigModule.forRoot({
       envFilePath: ['.local.env'],
       isGlobal: true,

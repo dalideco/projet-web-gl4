@@ -39,3 +39,5 @@ sqlite.db
 *.env
 
 storage-volume
+
+uploads
