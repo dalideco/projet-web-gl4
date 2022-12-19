@@ -41,4 +41,16 @@ export class ItemController {
   remove(@Param('id') id: string) {
     return this.itemService.remove(+id);
   }
+
+  @UseGuards(EditItemGuard)
+  @Patch(':id/:gameid')
+  removeGame(@Param('id') id: string , @Param('id') gameId: string ){
+    return this.itemService.removeGame(+id,+gameId);
+  }
+
+  @UseGuards(EditItemGuard)
+  @Patch(':id/:gameid')
+  addGame(@Param('id') id: string , @Param('id') gameId: string ){
+    return this.itemService.addGame(+id,+gameId);
+  }
 }
