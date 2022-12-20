@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'entities/user.entity';
 import { Repository } from 'typeorm';
+import { existsSync, fstat, unlink } from 'fs';
+import { join } from 'path';
 
 @Injectable()
 export class UserService {
@@ -28,9 +30,9 @@ export class UserService {
     return entity;
   }
 
-  async insertOne(user: Partial<User>){
+  async insertOne(user: Partial<User>) {
     const entity = this.usersRepository.create({
-      ...user
+      ...user,
     });
     this.usersRepository.save([entity]);
     return entity;
@@ -44,12 +46,33 @@ export class UserService {
     await this.usersRepository.delete(id);
   }
 
-  async addImage(user:any , image: Express.Multer.File){
-    const foundUser = await this.findOne(user.id)
-    foundUser.image = image.filename
-    const toReturnUser = await this.usersRepository.save(foundUser)
-    delete toReturnUser.hashed_password
-    return toReturnUser
+  async addImage(user: any, image: Express.Multer.File) {
+    const foundUser = await this.findOne(user.id);
+
+    //deleting previous file
+    const oldFilePath = join(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      'uploads',
+      foundUser.image,
+    );
+    // no need to await this, delete can happen asynchronously
+    if (foundUser.image && existsSync(oldFilePath)) {
+      unlink(oldFilePath, (err) => {
+        if (err) {
+          Logger.warn("couldn't delete old picture");
+        }
+        Logger.log('deleted old picture');
+      });
+    }
+
+    //adding new image
+    foundUser.image = image.filename;
+    const toReturnUser = await this.usersRepository.save(foundUser);
+    delete toReturnUser.hashed_password;
+    return toReturnUser;
   }
 
   async empty() {
