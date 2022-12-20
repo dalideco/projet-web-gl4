@@ -43,14 +43,16 @@ export class ItemController {
   }
 
   @UseGuards(EditItemGuard)
-  @Patch(':id/:gameid')
-  removeGame(@Param('id') id: string , @Param('id') gameId: string ){
+  @Patch(':id/delete-game/:gameid')
+  removeGame(@Param('id') id: string , @Param('gameid') gameId: string ){
+    console.log("removing game",id, gameId)
     return this.itemService.removeGame(+id,+gameId);
   }
 
   @UseGuards(EditItemGuard)
-  @Patch(':id/:gameid')
-  addGame(@Param('id') id: string , @Param('id') gameId: string ){
+  @Patch(':id/add-game/:gameid')
+  addGame(@Param('id') id: string , @Param('gameid') gameId: string ){
+    console.log("adding game",id, gameId)
     return this.itemService.addGame(+id,+gameId);
   }
 }

@@ -18,18 +18,18 @@ export class ItemService {
     // private storeRepository: Repository<Store>,
     private storeService: StoreService,
     private userService: UserService,
-    private gameService: GameService
+    private gameService: GameService,
   ) {}
 
   async create(createItemDto: CreateItemDto, logged_user: any) {
     //getting related store and user
     const store = await this.storeService.findOne(createItemDto.storeid);
     const user = await this.userService.findOneByEmail(logged_user.email);
-    
+
     //getting games
     let games: Game[];
-    if(createItemDto.gameIds){
-      games= await this.gameService.findManyIds(createItemDto.gameIds)
+    if (createItemDto.gameIds) {
+      games = await this.gameService.findManyIds(createItemDto.gameIds);
     }
 
     //if store found
@@ -37,7 +37,7 @@ export class ItemService {
       //removing password from user object
       delete user.hashed_password;
 
-      const obj: DeepPartial<Item> = { ...createItemDto, store, user,games };
+      const obj: DeepPartial<Item> = { ...createItemDto, store, user, games };
       const item = await this.itemRepository.create(obj);
       return this.itemRepository.save(item);
     }
@@ -69,7 +69,7 @@ export class ItemService {
   }
 
   async update(id: number, updateItemDto: UpdateItemDto) {
-    return this.itemRepository.update({ id }, {...updateItemDto});
+    return this.itemRepository.update({ id }, { ...updateItemDto });
   }
 
   remove(id: number) {
@@ -81,25 +81,25 @@ export class ItemService {
     return number === 0;
   }
 
-  async removeGame(id: number,gameId : number){
-    let item : Item;
-    item = await this.findOne(id);
-    item.games =  item.games.filter((games) => {
-    return games.id !== gameId
-    })
-    await this.itemRepository.save(item);
+  async removeGame(id: number, gameId: number) {
+    const item = await this.findOne(id);
+
+    if (!item.games.find((game) => game.id === gameId)) {
+      throw new NotFoundException(`game with id ${gameId} not found in item`);
+    }
+
+    item.games = item.games.filter((games) => {
+      return games.id !== gameId;
+    });
+    return this.itemRepository.save(item);
   }
 
-  async addGame(id: number,gameId : number){
-    let item : Item;
-    let game : Game;
-    item = await this.findOne(id);
-    game = await this.gameService.findOne(gameId)
-    if(game){
+  async addGame(id: number, gameId: number) {
+    const item = await this.findOne(id);
+    const game = await this.gameService.findOne(gameId);
+    if (game) {
       item.games.push(game);
-      await this.itemRepository.save(item);
-    }  
+      return this.itemRepository.save(item);
+    }
   }
-
-  
 }

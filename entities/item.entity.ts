@@ -18,13 +18,13 @@ export class Item {
   @Column({ default: ItemType.account })
   type: ItemType;
 
-  @ManyToOne(() => Store, store => store.items)
+  @ManyToOne(() => Store, store => store.items,{eager:true})
   store: Store;
 
-  @ManyToOne(() => User,user => user.items)
+  @ManyToOne(() => User,user => user.items,{eager: true})
   user: User;
 
-  @ManyToMany(() => Game)
+  @ManyToMany(() => Game,{eager: true})
   @JoinTable()
   games: Game[];
 }
