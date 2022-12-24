@@ -41,6 +41,7 @@ $ yarn
 Created a file named `.local.env` containing the following environment variables: 
 ```
 ENV=local
+CLIENT_URL=http://localhost:4200
 ```
 This is need to enable synchronize with TypeOrm and initially seed the database
 
