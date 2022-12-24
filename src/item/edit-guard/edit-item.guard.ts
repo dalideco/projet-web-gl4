@@ -1,27 +1,26 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { ItemService } from '../item.service';
 
 @Injectable()
 export class EditItemGuard implements CanActivate {
   constructor(
     @InjectDataSource()
     private dataSource: DataSource,
+    private itemService: ItemService,
   ) {}
 
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-
-    //without auto load entities
-    const queryRunner = await this.dataSource.createQueryRunner()
-    const result = await queryRunner.manager.query(
-      `SELECT * FROM item WHERE item.id= $1`, [request.params.id]
-    )
-    const item = result[0]
-
-    return item.userId===user.id
+    const item = await this.itemService.findOne(request.params.id);
+    if (!item) throw new NotFoundException(`item ${request.params.id} not found`);
+    return item.user.id === user.id;
   }
 }

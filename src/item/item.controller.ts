@@ -16,7 +16,8 @@ export class ItemController {
     return this.itemService.create(createItemDto, req.user);
   }
 
-  @Roles(Role.admin)
+  // @Roles(Role.admin)
+  @Public()
   @Get()
   findAll() {
     return this.itemService.findAll();

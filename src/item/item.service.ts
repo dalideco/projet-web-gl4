@@ -85,7 +85,7 @@ export class ItemService {
     const item = await this.findOne(id);
 
     if (!item.games.find((game) => game.id === gameId)) {
-      throw new NotFoundException(`game with id ${gameId} not found in item`);
+      throw new   NotFoundException(`game with id ${gameId} not found in item`);
     }
 
     item.games = item.games.filter((games) => {
