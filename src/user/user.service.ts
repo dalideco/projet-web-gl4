@@ -49,23 +49,29 @@ export class UserService {
   async addImage(user: any, image: Express.Multer.File) {
     const foundUser = await this.findOne(user.id);
 
-    //deleting previous file
-    const oldFilePath = join(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'uploads',
-      foundUser.image,
-    );
-    // no need to await this, delete can happen asynchronously
-    if (foundUser.image && existsSync(oldFilePath)) {
-      unlink(oldFilePath, (err) => {
-        if (err) {
-          Logger.warn("couldn't delete old picture");
-        }
-        Logger.log('deleted old picture');
-      });
+    console.log(process.env.UPLOADS_FOLDER);
+
+    if (foundUser.image) {
+      //deleting previous file
+      const oldFilePath = join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'public',
+        process.env.UPLOADS_FOLDER,
+        foundUser.image,
+      );
+
+      // no need to await this, delete can happen asynchronously
+      if (foundUser.image && existsSync(oldFilePath)) {
+        unlink(oldFilePath, (err) => {
+          if (err) {
+            Logger.warn("couldn't delete old picture");
+          }
+          Logger.log('deleted old picture');
+        });
+      }
     }
 
     //adding new image

@@ -12,7 +12,7 @@ import { diskStorage } from 'multer';
     MulterModule.register({
       storage: diskStorage({
         destination: function (req, file, cb) {
-          cb(null, './uploads');
+          cb(null, './public/'+process.env.UPLOADS_FOLDER);
         },
         filename: function (req, file, cb) {
           const uniqueSuffix =
