@@ -3,14 +3,18 @@ import { CreateStoreDto } from "src/store/dto/create-store.dto";
 export const stores: CreateStoreDto[] = [
     {
       title: 'Steam',
-      image: '',
+      image: 'Steam_icon.png',
     },
     {
       title: 'Epic',
-      image: '',
+      image: 'Epic_Games_icon.png',
     },
     {
       title: 'Origin',
-      image: '',
+      image: 'origin_icon.png',
     },
+    {
+      title: "Riot Games",
+      image: "Riot_Games-icon.png"
+    }
   ];

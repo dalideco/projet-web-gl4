@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Game } from 'entities/game.entity';
+import { join } from 'path';
 import { Repository } from 'typeorm';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
@@ -12,25 +13,38 @@ export class GameService {
     private readonly gameRepository: Repository<Game>,
   ) {}
 
+  transformUrl(image:string){
+    return new URL(
+      join(process.env.GAMES_FOLDER, image),
+      process.env.URL,
+    ).href
+  }
+
   create(createGameDto: CreateGameDto) {
     const game = this.gameRepository.create(createGameDto);
     return this.gameRepository.save(game);
   }
 
   findAll() {
-    return this.gameRepository.find();
+    return this.gameRepository.find().then((games) => {
+      return games.map((game) => ({
+        ...game,
+        image: this.transformUrl(game.image)
+      }));
+    });
   }
 
   findOne(id: number) {
-    return this.gameRepository.findOneBy({ id });
+    return this.gameRepository.findOneBy({ id })
+      .then(game => ({...game, image: this.transformUrl(game.image)}));
   }
 
-  async findManyIds(ids: number[]){
-    const games: Game[]=[];
-    for(const id of ids) {
-      games.push(await this.findOne(id))
+  async findManyIds(ids: number[]) {
+    const games: Game[] = [];
+    for (const id of ids) {
+      games.push(await this.findOne(id));
     }
-    return games
+    return games;
   }
 
   update(id: number, updateGameDto: UpdateGameDto) {
@@ -42,7 +56,7 @@ export class GameService {
   }
 
   async empty() {
-    const number = await this.gameRepository.count()
-    return number ===0 
+    const number = await this.gameRepository.count();
+    return number === 0;
   }
 }

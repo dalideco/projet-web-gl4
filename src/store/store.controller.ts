@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { StoreService } from './store.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { Public } from 'decorators/public.decorator';
 
 @Controller('store')
 export class StoreController {
@@ -12,11 +13,13 @@ export class StoreController {
     return this.storeService.create(createStoreDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.storeService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.storeService.findOne(+id);
