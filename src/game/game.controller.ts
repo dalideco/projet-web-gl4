@@ -4,6 +4,7 @@ import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { Roles } from 'decorators/roles.decoroator';
 import Role from 'models/role.enum';
+import { Public } from 'decorators/public.decorator';
 
 @Roles(Role.admin)
 @Controller('game')
@@ -15,6 +16,7 @@ export class GameController {
     return this.gameService.create(createGameDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.gameService.findAll();
