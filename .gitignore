@@ -36,7 +36,7 @@ lerna-debug.log*
 
 #ignoring sqlite
 sqlite.db
-*.env
+.env
 
 storage-volume
 

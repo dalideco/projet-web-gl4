@@ -195,9 +195,5 @@ export const games: CreateGameDto[] = [
     title: 'valorant',
     description: 'Open world game! ',
     image: 'pic/valorant.jpg',
-  },
-  
-
-
-  
+  }
 ];
