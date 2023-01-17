@@ -6,25 +6,22 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
-  Request
+  Request,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-
-    constructor(private userService: UserService ){}
+  constructor(private userService: UserService) {}
 
   @Post('image')
-  @UseInterceptors(FileInterceptor('image',{
-    
-  }))
+  @UseInterceptors(FileInterceptor('image'))
   postImage(
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addFileTypeValidator({
-          fileType: /(jpg|jpeg|png)$/
+          fileType: /(jpg|jpeg|png)$/,
         })
         .addMaxSizeValidator({
           maxSize: 800000000,
@@ -34,9 +31,9 @@ export class UserController {
         }),
     )
     image: Express.Multer.File,
-    @Request() request
+    @Request() request,
   ) {
     if (!image) throw new BadRequestException('file missing');
-    return this.userService.addImage(request.user, image)
+    return this.userService.addImage(request.user, image);
   }
 }
