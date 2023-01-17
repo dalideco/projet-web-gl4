@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { Public } from 'decorators/public.decorator';
 import { Roles } from 'decorators/roles.decoroator';
 import Role from 'models/role.enum';
@@ -27,7 +27,7 @@ export class AuthController {
   }
 
   @Roles(Role.user)
-  @Post('profile')
+  @Get('profile')
   async profile(@Request() req) {
     return req.user;
   }

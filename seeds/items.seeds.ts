@@ -4,19 +4,19 @@ import { SeedCreateItemDto } from "src/item/dto/seed-create-item.dto";
 export const items:SeedCreateItemDto[] = [
     {
       price: 12,
-      description: "hello ", 
+      description: "Dali's account ", 
       storeid: 1, 
       userEmail: "user@test.test",
       type:ItemType.account,
-      gameIds:[3,4]
+      gameIds:[3,4,7,7]
     },
     {
       price: 12,
       description: "title clear", 
       storeid: 2, 
       userEmail: "admin@test.test",
-      type:ItemType.account,
-      gameIds:[5,6,1,2,3]
+      type:ItemType.gameKey,
+      gameIds:[5]
     },
     {
       price: 12,
@@ -31,8 +31,8 @@ export const items:SeedCreateItemDto[] = [
       description: "title clear", 
       storeid: 3, 
       userEmail: "admin@test.test",
-      type:ItemType.account,
-      gameIds:[1,2]
+      type:ItemType.gameKey,
+      gameIds:[1]
     },
     {
       price: 12,
@@ -40,7 +40,15 @@ export const items:SeedCreateItemDto[] = [
       storeid: 3, 
       userEmail: "admin@test.test",
       type:ItemType.account,
-      gameIds:[1,2]
+      gameIds:[1,2,3,4,5,6]
+    },
+    {
+      price: 12,
+      description: "title clear", 
+      storeid: 3, 
+      userEmail: "admin@test.test",
+      type:ItemType.gameKey,
+      gameIds:[1]
     },
     {
       price: 12,
@@ -48,7 +56,15 @@ export const items:SeedCreateItemDto[] = [
       storeid: 3, 
       userEmail: "admin@test.test",
       type:ItemType.account,
-      gameIds:[1,2]
+      gameIds:[1,2,3,4,5,6,7]
+    },
+    {
+      price: 12,
+      description: "title clear", 
+      storeid: 3, 
+      userEmail: "admin@test.test",
+      type:ItemType.gameKey,
+      gameIds:[1]
     },
     {
       price: 12,
@@ -56,31 +72,15 @@ export const items:SeedCreateItemDto[] = [
       storeid: 3, 
       userEmail: "admin@test.test",
       type:ItemType.account,
-      gameIds:[1,2]
+      gameIds:[1,2,6,7]
     },
     {
       price: 12,
       description: "title clear", 
       storeid: 3, 
       userEmail: "admin@test.test",
-      type:ItemType.account,
-      gameIds:[1,2]
-    },
-    {
-      price: 12,
-      description: "title clear", 
-      storeid: 3, 
-      userEmail: "admin@test.test",
-      type:ItemType.account,
-      gameIds:[1,2]
-    },
-    {
-      price: 12,
-      description: "title clear", 
-      storeid: 3, 
-      userEmail: "admin@test.test",
-      type:ItemType.account,
-      gameIds:[1,2]
+      type:ItemType.gameKey,
+      gameIds:[1]
     },
     {
       price: 12,
