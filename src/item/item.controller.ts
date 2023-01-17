@@ -6,10 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Request,
   UseGuards
 } from '@nestjs/common';
 import { Public } from 'decorators/public.decorator';
+import ItemType from 'models/ItemType.enum';
 import { GameService } from 'src/game/game.service';
 import { StoreService } from 'src/store/store.service';
 import { CreateItemDto } from './dto/create-item.dto';
@@ -91,5 +93,19 @@ export class ItemController {
   addGame(@Param('id') id: string, @Param('gameid') gameId: string) {
     console.log('adding game', id, gameId);
     return this.itemService.addGame(+id, +gameId);
+  }
+
+  @Get('/filter')
+  async findAllByFilter(
+                  @Query('type') type: ItemType,
+                  @Query('name') name: string){
+                    console.log("filter called");
+                    var options = {};
+                    if(type)
+                    options["type"]=type;
+                    if(name)
+                    options["name"]=name;
+                    return await this.itemService.findAllByFilter(options);
+    
   }
 }

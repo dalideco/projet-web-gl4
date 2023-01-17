@@ -9,6 +9,9 @@ export class Item {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ nullable: true })
+  name: string;
+  
   @Column()
   price: number;
 

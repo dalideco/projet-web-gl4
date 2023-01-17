@@ -5,7 +5,7 @@ import { Item } from 'entities/item.entity';
 import { GameService } from 'src/game/game.service';
 import { StoreService } from 'src/store/store.service';
 import { UserService } from 'src/user/user.service';
-import { DeepPartial, Repository } from 'typeorm';
+import { DeepPartial, FindManyOptions, Repository } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
 import { SeedCreateItemDto } from './dto/seed-create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
@@ -103,4 +103,9 @@ export class ItemService {
       return this.itemRepository.save(item);
     }
   }
+
+  async findAllByFilter(options){
+    return await this.itemRepository.findAndCount(options as FindManyOptions<Item>)
+  }
+
 }
