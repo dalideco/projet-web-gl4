@@ -36,7 +36,7 @@ export const items:SeedCreateItemDto[] = [
       storeid: 3, 
       userEmail: "admin@test.test",
       type:ItemType.gameKey,
-      gameIds:[1]
+      gameIds:[12]
     },
     {
       name: "steam account with cs go stickers and 1200 hours of gameplay , 10 years of service medal and prime",
@@ -54,7 +54,7 @@ export const items:SeedCreateItemDto[] = [
       storeid: 3, 
       userEmail: "admin@test.test",
       type:ItemType.gameKey,
-      gameIds:[1]
+      gameIds:[32]
     },
     {
       name: "valorant account with prime vandal",
@@ -100,5 +100,50 @@ export const items:SeedCreateItemDto[] = [
       userEmail: "admin@test.test",
       type:ItemType.gameKey,
       gameIds:[13,16,5,4]
+    },
+    {
+      name: "epic games account with many many fortnite skins",
+      price: 40,
+      description: "title clear", 
+      storeid: 2, 
+      userEmail: "admin@test.test",
+      type:ItemType.gameKey,
+      gameIds:[20]
+    },
+    {
+      name: "epic games account with many many fortnite skins",
+      price: 40,
+      description: "title clear", 
+      storeid: 2, 
+      userEmail: "admin@test.test",
+      type:ItemType.gameKey,
+      gameIds:[21]
+    },
+    {
+      name: "epic games account with many many fortnite skins",
+      price: 40,
+      description: "title clear", 
+      storeid: 2, 
+      userEmail: "admin@test.test",
+      type:ItemType.gameKey,
+      gameIds:[22]
+    },
+    {
+      name: "epic games account with many many fortnite skins",
+      price: 40,
+      description: "title clear", 
+      storeid: 2, 
+      userEmail: "admin@test.test",
+      type:ItemType.gameKey,
+      gameIds:[23]
+    },
+    {
+      name: "epic games account with many many fortnite skins",
+      price: 40,
+      description: "title clear", 
+      storeid: 2, 
+      userEmail: "admin@test.test",
+      type:ItemType.gameKey,
+      gameIds:[24]
     },
   ];

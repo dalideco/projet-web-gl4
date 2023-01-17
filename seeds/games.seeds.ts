@@ -122,11 +122,6 @@ export const games: CreateGameDto[] = [
     image: 'tails-of-iron.png',
   },
   {
-    title: 'the galactic junkers',
-    description: 'Open world game! ',
-    image: 'bloons-td-6.png',
-  },
-  {
     title: 'the last of us part1',
     description: 'Open world game! ',
     image: 'the-last-of-us-p1.jpg',
