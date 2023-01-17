@@ -45,11 +45,7 @@ export const items:SeedCreateItemDto[] = [
       storeid: 1, 
       userEmail: "admin@test.test",
       type:ItemType.account,
-<<<<<<< Updated upstream
-      gameIds:[1,2,3,4,5,6]
-=======
       gameIds:[6,12,7,5,2]
->>>>>>> Stashed changes
     },
     {
       name: "origin account for sale",
@@ -67,11 +63,7 @@ export const items:SeedCreateItemDto[] = [
       storeid: 4, 
       userEmail: "admin@test.test",
       type:ItemType.account,
-<<<<<<< Updated upstream
-      gameIds:[1,2,3,4,5,6,7]
-=======
       gameIds:[30]
->>>>>>> Stashed changes
     },
     {
       name: "epic games account with many many fortnite skins",
@@ -89,11 +81,7 @@ export const items:SeedCreateItemDto[] = [
       storeid: 3, 
       userEmail: "admin@test.test",
       type:ItemType.account,
-<<<<<<< Updated upstream
-      gameIds:[1,2,6,7]
-=======
       gameIds:[1,2,3,4,5]
->>>>>>> Stashed changes
     },
     {
       name: "im selling my passed brother account, it has multiple new never played games",
@@ -101,13 +89,8 @@ export const items:SeedCreateItemDto[] = [
       description: "title clear", 
       storeid: 1, 
       userEmail: "admin@test.test",
-<<<<<<< Updated upstream
-      type:ItemType.gameKey,
-      gameIds:[1]
-=======
       type:ItemType.account,
       gameIds:[1,10,12,7,8]
->>>>>>> Stashed changes
     },
     {
       name: "steam account for free",
