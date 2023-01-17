@@ -7,10 +7,9 @@ import {
   Patch,
   Post,
   Request,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import { Public } from 'decorators/public.decorator';
-import { stores } from 'seeds/stores.seeds';
 import { GameService } from 'src/game/game.service';
 import { StoreService } from 'src/store/store.service';
 import { CreateItemDto } from './dto/create-item.dto';

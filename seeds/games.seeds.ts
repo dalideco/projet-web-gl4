@@ -7,31 +7,6 @@ export const games: CreateGameDto[] = [
     image: 'RDR2.jpg',
   },
   {
-    title: "Assassin's creend Unity",
-    description: 'Open world game! ',
-    image: '',
-  },
-  {
-    title: 'Rise of the Tomb Raider',
-    description: 'Open world game! ',
-    image: '',
-  },
-  {
-    title: 'Shadow of the Tomb Raider',
-    description: 'Open world game! ',
-    image: '',
-  },
-  {
-    title: 'Metro Exodus',
-    description: 'Open world game! ',
-    image: '',
-  },
-  {
-    title: 'FIFA 23',
-    description: 'Open world game! ',
-    image: '',
-  },
-  {
     title: 'ARK Survival Evolved',
     description: 'Open world game! ',
     image: 'ARKSurvivalEvolved.jpg',
@@ -50,11 +25,6 @@ export const games: CreateGameDto[] = [
     title: 'charons staircase',
     description: 'Open world game! ',
     image: 'charons-staircase.jpg',
-  },
-  {
-    title: 'children of silentown',
-    description: 'Open world game! ',
-    image: 'children of silentown.jpg',
   },
   {
     title: 'Cities Skylines',

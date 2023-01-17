@@ -13,11 +13,8 @@ export class GameService {
     private readonly gameRepository: Repository<Game>,
   ) {}
 
-  transformUrl(image:string){
-    return new URL(
-      join(process.env.GAMES_FOLDER, image),
-      process.env.URL,
-    ).href
+  transformUrl(image: string) {
+    return new URL(join(process.env.GAMES_FOLDER, image), process.env.URL).href;
   }
 
   create(createGameDto: CreateGameDto) {
@@ -29,20 +26,26 @@ export class GameService {
     return this.gameRepository.find().then((games) => {
       return games.map((game) => ({
         ...game,
-        image: this.transformUrl(game.image)
+        image: this.transformUrl(game.image),
       }));
     });
   }
 
   findOne(id: number) {
-    return this.gameRepository.findOneBy({ id })
-      .then(game => ({...game, image: this.transformUrl(game.image)}));
+    return this.gameRepository
+      .findOneBy({ id })
+      .then((game) => ({ ...game, image: this.transformUrl(game.image) }));
   }
 
   async findManyIds(ids: number[]) {
     const games: Game[] = [];
     for (const id of ids) {
-      games.push(await this.findOne(id));
+      games.push(
+        await this.findOne(id).then((game) => ({
+          ...game,
+          image: this.transformUrl(game.image),
+        })),
+      );
     }
     return games;
   }

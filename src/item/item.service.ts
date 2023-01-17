@@ -50,8 +50,9 @@ export class ItemService {
   async seedCreate(createItemDto: SeedCreateItemDto) {
     const store = await this.storeService.findOne(createItemDto.storeid);
     const user = await this.userService.findOneByEmail(createItemDto.userEmail);
+    const games = await this.gameService.findManyIds(createItemDto.gameIds)
     if (store) {
-      const obj = { ...createItemDto, store, user };
+      const obj = { ...createItemDto, store, user, games };
       const item = await this.itemRepository.create(obj);
       return this.itemRepository.save(item);
     }
